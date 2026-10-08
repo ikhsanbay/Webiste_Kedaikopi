@@ -1,172 +1,912 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Kedai Kopi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Warung Kopi Pemuda - Tempat ngopi santai, kopi berkualitas, dan hidangan hangat untuk setiap momen.">
+  <title>Warung Kopi Pemuda</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        body {
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-image: url('kopi.jpg');
-        color: #000000;
-      }
-      
-      
-      header {
-        background-image:url('hiho.jpg');
-        color: white;
-        padding: 20px 0;
-      }
-      
-      header h1 {
-        margin: 0;
-        font-size: 2rem;
-        color: rgb(179, 228, 231);
-      }
-    
-      nav ul {
-        list-style: none;
-        padding: 0;
-        text-align: center;
-        margin-top: 20px;
-      }
-      
-      nav ul li {
-        display: inline;
-        margin-right: 20px;
-      }
-      
-      nav ul li a {
-        color: white;
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-      
-      nav ul li a:hover {
-        color: #ddd;
-      }
-      
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const navbar = document.querySelector('.navbar');
+      const revealItems = document.querySelectorAll('.reveal, .section-title');
 
-      #menu {
-        text-align: center;
-        padding: 50px 0;
+      const handleScroll = () => {
+        if (!navbar) return;
+        if (window.scrollY > 20) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      };
+
+      handleScroll();
+      window.addEventListener('scroll', handleScroll);
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealItems.forEach((item) => revealObserver.observe(item));
+    });
+  </script>
+  <style>
+    :root {
+      --cafe-dark: #1d120d;
+      --cafe-brown: #5d3921;
+      --cafe-gold: #d9a441;
+      --cafe-cream: #f7f1ea;
+      --cafe-olive: #7a8b64;
+      --cafe-white: #ffffff;
+      --shadow-soft: 0 18px 40px rgba(29, 18, 13, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #f6f0ea 0%, #f9f5f2 100%);
+      color: var(--cafe-dark);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(38px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .topbar {
+      background: rgba(29, 18, 13, 0.9);
+      color: var(--cafe-white);
+      padding: 8px 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--cafe-gold);
+      text-transform: uppercase;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(29, 18, 13, 0.08);
+      padding: 1rem 0;
+      box-shadow: 0 2px 16px rgba(29, 18, 13, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 8px 28px rgba(29, 18, 13, 0.12);
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--cafe-dark);
+      font-weight: 600;
+      margin: 0 0.9rem;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--cafe-gold);
+      transition: width 0.25s ease;
+    }
+
+    .navbar-nav .nav-link:hover::after,
+    .navbar-nav .nav-item.active .nav-link::after {
+      width: 100%;
+    }
+
+    .btn-primary-custom {
+      background: var(--cafe-brown);
+      border-color: var(--cafe-brown);
+      color: var(--cafe-white);
+      border-radius: 999px;
+      padding: 0.85rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 12px 24px rgba(93, 57, 33, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary-custom::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2), transparent 45%, rgba(255,255,255,0.1));
+      transform: translateX(-120%);
+      transition: transform 0.5s ease;
+    }
+
+    .btn-primary-custom:hover {
+      background: #4a2d1f;
+      border-color: #4a2d1f;
+      transform: translateY(-2px) scale(1.01);
+      color: var(--cafe-white);
+      box-shadow: 0 18px 30px rgba(93, 57, 33, 0.24);
+    }
+
+    .btn-primary-custom:hover::before {
+      transform: translateX(120%);
+    }
+
+    .btn-outline-custom {
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      color: var(--cafe-white);
+      border-radius: 999px;
+      padding: 0.85rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-custom:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      color: var(--cafe-white);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
       }
-      
-      #menu h2 {
-        margin-bottom: 30px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      
-      .menu-items .card {
-        border: none;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-      }
-      
-      .menu-items .card:hover {
-        transform: translateY(-5px);
-      }
-      
-      .menu-items .card img {
-        max-width: 100%;
-        height: auto;
-      }
-      
-      .menu-items .card-title {
-        font-weight: bold;
-      }
-      
-      .menu-items .card-text {
-        color: #777;
-      }
-      
-    
-      section {
-        padding: 50px 0;
-      }
-      
-      section h3 {
-        margin-bottom: 30px;
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(217, 164, 65, 0.15); }
+      50% { box-shadow: 0 0 30px rgba(217, 164, 65, 0.25); }
+    }
+
+    .hero h1,
+    .hero p,
+    .hero-actions,
+    .mini-stats {
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .eyebrow {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .mini-stat,
+    .feature-item,
+    .stat-box,
+    .testimonial,
+    .gallery-item,
+    .menu-card {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .menu-card:hover,
+    .gallery-item:hover,
+    .feature-item:hover,
+    .stat-box:hover {
+      animation: floaty 1.6s ease-in-out infinite;
+    }
+
+    .cta {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    .section-title {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: all 0.8s ease;
+    }
+
+    .section-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(28, 18, 13, 0.78), rgba(28, 18, 13, 0.38)),
+        url('https://images.unsplash.com/photo-1498804103079-a4f7d7a8f7e8?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color: var(--cafe-white);
+    }
+
+    .hero-content {
+      padding: 90px 0 70px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(217, 164, 65, 0.15);
+      color: #f7d08f;
+      border: 1px solid rgba(217, 164, 65, 0.3);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 4vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      max-width: 600px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 1rem;
+      max-width: 540px;
+    }
+
+    .mini-stat {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1rem 1rem 0.8rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header .tag {
+      color: var(--cafe-brown);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-header h2 {
+      font-weight: 800;
+      font-size: clamp(2rem, 3vw, 3rem);
+      letter-spacing: -0.04em;
+      margin-bottom: 0.7rem;
+    }
+
+    .section-header p {
+      color: #5f4d42;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .menu-card {
+      border: none;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      background: var(--cafe-white);
+      height: 100%;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 22px 48px rgba(29, 18, 13, 0.18);
+    }
+
+    .menu-card img {
+      height: 240px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .menu-card .card-body {
+      padding: 1.5rem;
+    }
+
+    .menu-card .card-title {
+      font-weight: 800;
+      font-size: 1.45rem;
+      color: var(--cafe-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .menu-card .card-text {
+      color: #695749;
+      margin-bottom: 1.1rem;
+    }
+
+    .price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--cafe-brown);
+    }
+
+    .about-box {
+      background: var(--cafe-white);
+      border-radius: 28px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .about-box h3 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .about-box p {
+      color: #5f4d42;
+      margin-bottom: 1rem;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-item {
+      padding: 1rem;
+      background: #f8f2eb;
+      border: 1px solid rgba(29, 18, 13, 0.05);
+      border-radius: 16px;
+      color: var(--cafe-dark);
+      font-weight: 600;
+    }
+
+    .feature-item .icon {
+      display: inline-flex;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(217, 164, 65, 0.12);
+      color: var(--cafe-brown);
+      margin-bottom: 0.65rem;
+      font-size: 1.1rem;
+    }
+
+    .stats-wrap {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fffaf5 0%, #f4efe9 100%);
+      border: 1px solid rgba(93, 57, 33, 0.08);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--cafe-brown);
+    }
+
+    .stat-box span {
+      color: #695749;
+      font-size: 0.9rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 22px;
+      box-shadow: var(--shadow-soft);
+      height: 280px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .testimonial {
+      background: linear-gradient(135deg, #f5efe8, #fffaf5);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      height: 100%;
+    }
+
+    .testimonial p {
+      color: #5f4d42;
+      font-size: 1.02rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .person strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .person span {
+      color: #7b6455;
+      font-size: 0.85rem;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #2b1c14, #5d3921);
+      color: var(--cafe-white);
+      border-radius: 28px;
+      padding: 3rem 2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .cta h3 {
+      font-size: clamp(1.8rem, 2vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.04em;
+    }
+
+    .cta p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 0;
+    }
+
+    footer {
+      background: #1d120d;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .footer-brand {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--cafe-gold);
+      text-transform: uppercase;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--cafe-white);
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        min-height: 540px;
       }
 
-    </style>
-    
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .topbar {
+        text-align: center;
+      }
+
+      .feature-list,
+      .stats-wrap,
+      .gallery-grid,
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta {
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <header class="bg-red text-light py-4">
-    <div class="container">
-      <h1 class="text-center">WARUNG KOPI PEMUDA</h1>
+  <div class="topbar">
+    <div class="container text-center">
+      Buka setiap hari: 08.00 - 22.00 • Jl. Kelapa Dua No. 12, Timika
     </div>
-    <nav class="navbar navbar-expand-lg">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toogle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="menu.html">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="aboutme.html">Tentang Kami</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="kontak.html">Kontak</a>
-                </li>
-            </ul>
+  </div>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="brand" href="#">Warung Kopi Pemuda</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ml-auto align-items-lg-center">
+            <li class="nav-item active"><a class="nav-link" href="#home">Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">Tentang Kami</a></li>
+            <li class="nav-item"><a class="nav-link" href="#galeri">Galeri</a></li>
+            <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+            <li class="nav-item ml-lg-3">
+              <a class="btn btn-primary-custom" href="https://wa.me/6282398060605?text=Halo%20Warung%20Kopi%20Pemuda%2C%20saya%20ingin%20pesan%20menu%20yang%20tersedia." target="_blank" rel="noopener noreferrer">Pesan Sekarang</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
   </header>
 
-  <main class="py-5">
-    <div class="container">
-      <section id="menu">
-        <h3 class="mb-4">BERANDA</h3>
-        <div class="row" id="menu-items">
-          <div class="col-md-4">
-            <a href="menu.html">
-            <div class="card mb-4">
-              <img src="menu1.jpg" class="card-img-top" alt="Menu 1">
-              <div class="card-body">
-                <h5 class="card-title">Kopi Spesial</h5>
-                <p class="card-text">Nikmati kopi spesial dengan cita rasa yang unik dari biji kopi terbaik.</p>
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <span class="eyebrow">Kopi berkualitas, rasa yang menghangatkan</span>
+            <h1>Rasa kopi terbaik untuk hari yang lebih berarti.</h1>
+            <p>
+              Warung Kopi Pemuda menghadirkan sajian kopi spesial, makanan hangat, dan suasana santai yang cocok untuk bekerja, nongkrong, atau berkumpul bersama teman.
+            </p>
+            <div class="hero-actions">
+              <a href="#menu" class="btn btn-primary-custom">Lihat Menu</a>
+              <a href="#about" class="btn btn-outline-custom">Tentang Kami</a>
+            </div>
+            <div class="mini-stats">
+              <div class="mini-stat">
+                <strong>1.2k+</strong>
+                <span>Pelanggan setia</span>
+              </div>
+              <div class="mini-stat">
+                <strong>4.9/5</strong>
+                <span>Rating pelanggan</span>
+              </div>
+              <div class="mini-stat">
+                <strong>8+</strong>
+                <span>Tahun pengalaman</span>
               </div>
             </div>
-          </a>
-          </div>
-          <div class="col-md-4">
-            <a href="menu.html">
-            <div class="card mb-4">
-              <img src="menu2.jpg" class="card-img-top" alt="Menu 2">
-              <div class="card-body">
-                <h5 class="card-title">Sarapan Sehat</h5>
-                <p class="card-text">Dapatkan sarapan sehat dengan beragam pilihan makanan bergizi.</p>
-              </div>
-            </div>
-          </a>
-          </div>
-          <div class="col-md-4">
-            <a href="menu.html">
-            <div class="card mb-4">
-              <img src="menu3.jpg" class="card-img-top" alt="Menu 3">
-              <div class="card-body card-body-bg-light">
-                <h5 class="card-title">Hidangan Ringan</h5>
-                <p class="card-text">Temukan hidangan ringan yang cocok untuk menemani waktu santai Anda.</p>
-              </div>
-            </div>
-          </a>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <section class="section reveal" id="menu">
+      <div class="container">
+        <div class="section-header section-title">
+          <span class="tag">Menu favorit</span>
+          <h2>Rasakan cita rasa yang selalu bikin nagih</h2>
+          <p>Dibuat dengan bahan pilihan, proses yang teliti, dan sentuhan khas warung untuk pengalaman kopi yang lebih lengkap.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 reveal">
+            <div class="menu-card">
+              <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="Kopi Spesial">
+              <div class="card-body">
+                <h5 class="card-title">Kopi Spesial</h5>
+                <p class="card-text">Campuran biji kopi pilihan dengan aroma yang kaya, rasa halus, dan finish yang lembut.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="price">Rp 22.000</span>
+                  <a href="https://wa.me/6282398060605?text=Halo%20Warung%20Kopi%20Pemuda%2C%20saya%20ingin%20pesan%20Kopi%20Spesial." target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom btn-sm">Pesan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4 reveal">
+            <div class="menu-card">
+              <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80" alt="Sarapan Sehat">
+              <div class="card-body">
+                <h5 class="card-title">Breakfast Combo</h5>
+                <p class="card-text">Menu sarapan bergizi dengan roti panggang, telur, dan minuman kesukaan Anda untuk memulai hari.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="price">Rp 28.000</span>
+                  <a href="https://wa.me/6282398060605?text=Halo%20Warung%20Kopi%20Pemuda%2C%20saya%20ingin%20pesan%20Breakfast%20Combo." target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom btn-sm">Pesan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4 reveal">
+            <div class="menu-card">
+              <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80" alt="Hidangan Ringan">
+              <div class="card-body">
+                <h5 class="card-title">Snack Time</h5>
+                <p class="card-text">Hidangan ringan yang pas untuk menemani waktu santai Anda, mulai dari kentang hingga pastry hangat.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="price">Rp 18.000</span>
+                  <a href="https://wa.me/6282398060605?text=Halo%20Warung%20Kopi%20Pemuda%2C%20saya%20ingin%20pesan%20Snack%20Time." target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom btn-sm">Pesan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="about">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0 reveal">
+            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80" alt="Interior Warung Kopi Pemuda" class="img-fluid rounded" style="border-radius: 28px; box-shadow: 0 20px 40px rgba(29,18,13,0.15);">
+          </div>
+          <div class="col-lg-6 reveal">
+            <div class="about-box">
+              <span class="tag" style="color: var(--cafe-brown);">Tentang kami</span>
+              <h3>Tempat nongkrong yang nyaman, hangat, dan penuh semangat.</h3>
+              <p>
+                Warung Kopi Pemuda lahir dari ide sederhana: menciptakan ruang yang nyaman untuk bersantai sambil menikmati kopi berkualitas dan makanan hangat yang dibuat dengan hati.
+              </p>
+              <p>
+                Kami percaya bahwa sebuah secangkir kopi bukan hanya minuman, tapi juga momen untuk bersantai, bertemu, dan mengisi energi di tengah aktivitas harian.
+              </p>
+
+              <div class="feature-list">
+                <div class="feature-item">
+                  <div class="icon">☕</div>
+                  Kopi pilihan
+                </div>
+                <div class="feature-item">
+                  <div class="icon">🍽️</div>
+                  Makanan hangat
+                </div>
+                <div class="feature-item">
+                  <div class="icon">🤝</div>
+                  Pelayanan ramah
+                </div>
+                <div class="feature-item">
+                  <div class="icon">✨</div>
+                  Suasana nyaman
+                </div>
+              </div>
+
+              <div class="stats-wrap">
+                <div class="stat-box">
+                  <strong>8k+</strong>
+                  <span>Cups served</span>
+                </div>
+                <div class="stat-box">
+                  <strong>50+</strong>
+                  <span>Menu pilihan</span>
+                </div>
+                <div class="stat-box">
+                  <strong>24/7</strong>
+                  <span>Support</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="galeri" style="background: #f4efe9;">
+      <div class="container">
+        <div class="section-header section-title">
+          <span class="tag">Galeri</span>
+          <h2>Suasana yang bikin betah berlama-lama</h2>
+          <p>Setiap sudut hadir dengan nuansa hangat yang cocok untuk kerja, nongkrong, atau momen santai bersama keluarga.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Cafe interior 1">
+          </div>
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Cafe interior 2">
+          </div>
+          <div class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80" alt="Cafe interior 3">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="section-header section-title">
+          <span class="tag">Testimoni</span>
+          <h2>Yang pelanggan katakan tentang kami</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 mb-4 reveal">
+            <div class="testimonial">
+              <p>“Kopinya enak banget, tempatnya nyaman untuk kerja santai. Pelayanannya ramah dan cepat, cocok untuk nongkrong sambil meeting.”</p>
+              <div class="person">
+                <div class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" alt="Ayu"></div>
+                <div>
+                  <strong>Ayu</strong>
+                  <span>Mahasiswa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4 reveal">
+            <div class="testimonial">
+              <p>“Suasananya adem dan nggak berisik. Cocok banget buat nongkrong dengan teman, apalagi menu sarapannya enak dan porsinya pas.”</p>
+              <div class="person">
+                <div class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Rizki"></div>
+                <div>
+                  <strong>Rizki</strong>
+                  <span>Freelancer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4 reveal">
+            <div class="testimonial">
+              <p>“Belanjaan nggak lengkap kalau belum mampir ke sini. Produk kopinya konsisten, dan rasa pas di lidah. Recommended banget.”</p>
+              <div class="person">
+                <div class="avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80" alt="Nadia"></div>
+                <div>
+                  <strong>Nadia</strong>
+                  <span>Penggemar kopi</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="kontak">
+      <div class="container">
+        <div class="cta reveal">
+          <div class="row align-items-center">
+            <div class="col-lg-8">
+              <h3>Siap menikmati kopi dan suasana yang nyaman?</h3>
+              <p>Datang langsung ke Warung Kopi Pemuda atau hubungi kami untuk pemesanan dan reservasi.</p>
+            </div>
+            <div class="col-lg-4 text-lg-right mt-3 mt-lg-0">
+              <a href="https://wa.me/6282398060605?text=Halo%20Warung%20Kopi%20Pemuda%2C%20saya%20ingin%20pesan%20kopi%20dan%20makanan%20yang%20terdapat%20di%20menu." target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom">Hubungi Kami</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 mb-4 mb-md-0">
+          <div class="footer-brand">Warung Kopi Pemuda</div>
+          <p class="mt-3 mb-0">Tempat santai untuk menikmati kopi berkualitas dan momen yang lebih berarti.</p>
+        </div>
+        <div class="col-md-3 mb-4 mb-md-0 footer-links">
+          <h5 class="text-white mb-3">Navigasi</h5>
+          <a href="#home">Beranda</a>
+          <a href="#menu">Menu</a>
+          <a href="#about">Tentang Kami</a>
+        </div>
+        <div class="col-md-4 footer-links">
+          <h5 class="text-white mb-3">Kontak</h5>
+          <a href="tel:+6282398060605">+62 823-9806-0605</a>
+          <a href="mailto:hello@warungkopipemuda.com">hello@warungkopipemuda.com</a>
+          <a href="#">Jl. Kelapa Dua No. 12, Timika</a>
+        </div>
+      </div>
+      <div class="mt-4 pt-3 border-top border-secondary text-center" style="font-size: 0.9rem;">
+        © 2026 Warung Kopi Pemuda. All rights reserved.
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
